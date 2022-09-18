@@ -6,8 +6,10 @@ import dir_dealing
 import excel_read
 import os
 
+# 根目录或者所有归类目录中的作品文件夹，添加或删除命名中的作品类型type
 
-def add_or_delete_work_type_into_all_student_folders_at_all_classified_folders(path_work_root, add_or_delete_type=True, path_excel=None, ask_before_delete_illegal_naming_folder=True):
+
+def add_or_remove_work_type_into_all_student_folders_at_all_classified_folders(path_work_root, add_or_delete_type=True, path_excel=None, ask_before_delete_illegal_naming_folder=True):
     if add_or_delete_type == True:  # 添加
         # 读取excel中的type信息
         if path_excel == None:
@@ -16,12 +18,12 @@ def add_or_delete_work_type_into_all_student_folders_at_all_classified_folders(p
         path_excel = excel_read.look_for_scoring_excel(path_excel_may_exist)
         student_rank_data = excel_read.get_excel_student_data(path_excel)
         act_str = "添加"
-        first_name_judge = is_legal_folder_name_without_type
-        second_name_judge = is_legal_folder_name_with_type
+        first_name_judge = get_err_reason_of_folder_name_with_no_type
+        second_name_judge = get_err_reason_of_folder_name_with_type
     else:
         act_str = "删除"
-        first_name_judge = is_legal_folder_name_with_type
-        second_name_judge = is_legal_folder_name_without_type
+        first_name_judge = get_err_reason_of_folder_name_with_type
+        second_name_judge = get_err_reason_of_folder_name_with_no_type
 
     for root, dir, file in os.walk(path_work_root):
         # root的最后尾部就是分类文件夹,例如：xxx\xxx\__$_优秀
@@ -29,7 +31,7 @@ def add_or_delete_work_type_into_all_student_folders_at_all_classified_folders(p
         if root.split("\\")[-1] in All_Classified_Folders_Name_List or root == path_work_root:
             for student_work_folder_name in dir:  # 各个学生文件夹
                 err_str = first_name_judge(student_work_folder_name)
-                if err_str == True:
+                if err_str == None:
                     stu_info = student_work_folder_name.split(
                         "-")  # 拆解学生信息
                     if add_or_delete_type:
@@ -50,7 +52,7 @@ def add_or_delete_work_type_into_all_student_folders_at_all_classified_folders(p
                 else:
                     err_str = second_name_judge(
                         student_work_folder_name)
-                    if err_str == True:
+                    if err_str == None:
                         print(f"***原文件夹命名已经{act_str}了类型：", chinese_align(
                             student_work_folder_name, 20), " in ", root)
                     elif student_work_folder_name.startswith(prefix_of_folders):
@@ -63,7 +65,7 @@ def add_or_delete_work_type_into_all_student_folders_at_all_classified_folders(p
                             ask_on_nonempty_folder=ask_before_delete_illegal_naming_folder)
 
 
-add_or_delete_work_type_into_all_student_folders_at_all_classified_folders(
+add_or_remove_work_type_into_all_student_folders_at_all_classified_folders(
     'F:\_____科创作业汇总\上传作业电子版', add_or_delete_type=True)
 # root_path = 'F:\_____科创作业汇总\上传作业电子版'
 # for root, dir, file in os.walk(root_path):

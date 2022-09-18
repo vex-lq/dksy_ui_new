@@ -57,20 +57,11 @@ def delete_a_folder_with_warning(folder_path, warning_str_ahead="", ask_on_nonem
                 shutil.rmtree(folder_path, ignore_errors=True)  # 直接删除
         else:  # 存在，但是为空文件夹\
             shutil.rmtree(folder_path, ignore_errors=True)  # 直接删除空文件夹
-    return True
+    return True  # 已删除
 
 
-def make_folders_with_warning(folder_path_list):  # 建立一些列文件夹
-    for folder_path in folder_path_list:
-        make_a_folder_with_warning(folder_path)
 
-
-def delete_folders_with_warning(folder_path_list):  # 删除1系列个文件夹
-    for folder_path in folder_path_list:
-        delete_a_folder_with_warning(folder_path)
-
-
-def move_folder_with_warning(src_student_work_path, des_classified_folder_path, directly_exit_if_exist=True, ask_replace_the_existed_folder=True):  # 剪切文件夹
+def move_a_folder_with_warning(src_student_work_path, des_classified_folder_path, directly_exit_if_exist=True, ask_replace_the_existed_folder=True):  # 剪切文件夹
     student_folder = src_student_work_path.split("\\")[-1]
     final_student_work_path = des_classified_folder_path + \
         "\\" + student_folder  # 最终移动后的文件夹

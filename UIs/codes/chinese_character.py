@@ -1,4 +1,4 @@
-def single_get_first(unicode1):
+def get_capital_pinyin(unicode1):
     str1 = unicode1.encode('gbk')
     try:
         ord(str1)
@@ -80,3 +80,7 @@ def chinese_align(string, length=20, align_side='l', space='　'):
     else:
         print('错误：对齐方式指示符错误')
         return new_string+space*(difference)   # 返回补齐空格后的字符串
+
+
+def is_Chinese(ch):
+    return '\u4e00' <= ch <= '\u9fff'
