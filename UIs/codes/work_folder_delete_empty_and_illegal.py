@@ -68,52 +68,45 @@ def delete_files_list(local_root, files):
         os.remove(local_root+"\\"+file)
 
 
-errrrrrrrrrrrrrrrrrrrrrr
 # 清除cgc文件夹中的未知文件、不合法文件夹
 
 
 def clear_all_unknown_cgc_folders(path_work_root, ask_on_nonempty_folder=True):
     # 计算根目录的层级数
     folder_n_level_path_work_root = len(path_work_root.split("\\"))
-    for local_root, folders, files in os.walk(path_work_root, topdown=False):
-        cgc_folder = False  # 校区、年级、班级文件夹
-        if len(local_root.split("\\")) == folder_n_level_path_work_root+3:
-            # 班级文件夹
-            for folder in folders:
-                if folder not in All_Classified_Folders_Name_List:
+    for local_root, folders, files in os.walk(path_work_root, topdown=True):
+        if len(local_root.split("\\")) == folder_n_level_path_work_root:  # 在根目录
+            for folder in folders:  # 各个校区文件夹
+                if folder not in All_Classified_Folders_Name_List and folder not in All_Campus_Folders_Names:
+                    delete_illegal_folder(path_work_root,
+                                          folder, local_root, ask_on_nonempty_folder)
+            delete_files_list(local_root, files)  # 删除文件
+        elif len(local_root.split("\\")) == folder_n_level_path_work_root+1:  # 在校区文件夹
+            for folder in folders:  # 各个年级文件夹
+                if not re.match("[高初][12]$", folder) and local_root.split("\\")[-1] not in All_Classified_Folders_Name_List:
                     delete_illegal_folder(path_work_root,
                                           folder, local_root, ask_on_nonempty_folder)
             delete_files_list(local_root, files)
-        elif len(local_root.split("\\")) == folder_n_level_path_work_root+2 and local_root.split("\\")[-2] not in All_Classified_Folders_Name_List:
-            # 假的年级文件夹
-            if not re.match("[高初][12]$", local_root.split("\\")[-2]):
-                delete_illegal_folder(path_work_root,
-                                      folder, local_root, ask_on_nonempty_folder, illeagl=True)
-            # 年级文件夹
-            for folder in folders:
-                if not re.match("(\d){1,2}班$", folder):  # 不是班级文件夹
-                    print("xxxxxxx:", local_root)
+        elif len(local_root.split("\\")) == folder_n_level_path_work_root+2:  # 在年级文件夹
+            for folder in folders:  # 各个班级文件夹
+                if not re.match("(\d){1,2}班$", folder) and re.match("[高初][12]$", local_root.split("\\")[-1]):
                     delete_illegal_folder(path_work_root,
                                           folder, local_root, ask_on_nonempty_folder)
             delete_files_list(local_root, files)
-        # elif len(local_root.split("\\")) == folder_n_level_path_work_root+1 and local_root.split("\\")[-2] not in All_Classified_Folders_Name_List:
-        #     print("grade:", local_root)
-        #     for folder in folders:
-        #         if not re.match("[高初][12]$", folder):  # 不是班级文件夹
-        #             delete_illegal_folder(path_work_root,
-        #                                   folder, local_root, ask_on_nonempty_folder)
-        #     delete_files_list(local_root, files)
-        #     cgc_folder = True  # 年级文件夹
-        # elif len(local_root.split("\\")) == folder_n_level_path_work_root+1 and local_root.split("\\")[-1] not in All_Classified_Folders_Name_List:
-        #     cgc_folder = True  # 校区文件夹
-
-
+        errrr  合法
+        elif len(local_root.split("\\")) == folder_n_level_path_work_root+3:  # 在班级文件夹
+            for folder in folders:  # 各个等级归类文件夹
+                if folder not in Rank_Folder_Names and re.match("(\d){1,2}班$", local_root.split("\\")[-1]):
+                    delete_illegal_folder(path_work_root,
+                                          folder, local_root, ask_on_nonempty_folder)
+            delete_files_list(local_root, files)
 # 删除空cgc和归类文件夹
 # delete_empty_classify_and_cgc_folder('F:\_____科创作业汇总\上传作业电子版')
 
 # 根目录和归类文件夹中检测不合法学生文件夹
 # check_and_delete_all_student_work_folders_at_root_and_classify_folders(
 #     'F:\_____科创作业汇总\上传作业电子版')
+
 
 # print(re.match("(\d){1,2}班", "xxx班"))
 clear_all_unknown_cgc_folders('F:\_____科创作业汇总\上传作业电子版')

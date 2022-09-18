@@ -17,7 +17,7 @@ def delete_all_campus_grade_class_rank_folders(path_work_root, ask_on_nonempty_f
                 path_class = path_grade+"\\"+str(class_n)+"班"
                 dir_dealing.delete_a_folder_with_warning(
                     path_class, ask_on_nonempty_folder=ask_on_nonempty_folder)  # 班级文件夹
-                for rank in rank_folders_name:
+                for rank in Rank_Folder_Names:
                     path_rank_folder = path_class+"\\"+rank
                     dir_dealing.delete_a_folder_with_warning(
                         path_rank_folder, ask_on_nonempty_folder=ask_on_nonempty_folder)  # 班级文件夹
@@ -26,9 +26,9 @@ def delete_all_campus_grade_class_rank_folders(path_work_root, ask_on_nonempty_f
 # 删除未评级和未无效归类文件夹
 def delete_invalid_and_unranked_folder(path_work_root, ask_on_nonempty_folder=True):
     dir_dealing.delete_a_folder_with_warning(
-        path_work_root+"\\"+folder_name_invalid, ask_on_nonempty_folder=ask_on_nonempty_folder)
+        path_work_root+"\\"+Invalid_Folder_Name, ask_on_nonempty_folder=ask_on_nonempty_folder)
     dir_dealing.delete_a_folder_with_warning(
-        path_work_root+"\\"+folder_name_unrankd, ask_on_nonempty_folder=ask_on_nonempty_folder)
+        path_work_root+"\\"+Unrankd_Folder_Name, ask_on_nonempty_folder=ask_on_nonempty_folder)
 
 
 # 取消归类,并删除（可选）所有cgc文件夹

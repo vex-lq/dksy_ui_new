@@ -16,7 +16,7 @@ def warn_messagebox(warning_str, win32con_type):
 # 注意，如果不合法，会返回错误原因字符串，正确才返回True,判断正确必须和True比较
 def get_err_reason_of_folder_name_with_no_type(folder_name):
     if folder_name.startswith(prefix_of_folders):
-        return None
+        return f'系统分类文件夹'
     result = re.match(
         rough_regex_of_student_folder_with_no_type, folder_name)
     err_str = ""

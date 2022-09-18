@@ -27,7 +27,7 @@ def make_all_campus_grade_class_rank_folders(path_work_root, directly_exit_if_ex
                 path_class = path_grade+"\\"+str(class_n)+"班"
                 dir_dealing.make_a_folder_with_warning(path_class, directly_exit_if_exist=directly_exit_if_exist,
                                                        ask_before_delete_the_existed_folder=ask_before_delete_the_existed_folder)  # 班级文件夹
-                for rank in rank_folders_name:
+                for rank in Rank_Folder_Names:
                     path_rank_folder = path_class+"\\"+rank
                     dir_dealing.make_a_folder_with_warning(
                         path_rank_folder, directly_exit_if_exist=directly_exit_if_exist, ask_before_delete_the_existed_folder=ask_before_delete_the_existed_folder)  # 班级文件夹
@@ -36,10 +36,10 @@ def make_all_campus_grade_class_rank_folders(path_work_root, directly_exit_if_ex
 
 
 def make_invalid_and_unranked_folder(path_work_root, directly_exit_if_exist=False, ask_before_delete_the_existed_folder=True):
-    dir_dealing.make_a_folder_with_warning(path_work_root+"\\"+folder_name_invalid,
+    dir_dealing.make_a_folder_with_warning(path_work_root+"\\"+Invalid_Folder_Name,
                                            directly_exit_if_exist=directly_exit_if_exist, ask_before_delete_the_existed_folder=ask_before_delete_the_existed_folder)
     dir_dealing.make_a_folder_with_warning(
-        path_work_root+"\\"+folder_name_unrankd, directly_exit_if_exist=directly_exit_if_exist, ask_before_delete_the_existed_folder=ask_before_delete_the_existed_folder)
+        path_work_root+"\\"+Unrankd_Folder_Name, directly_exit_if_exist=directly_exit_if_exist, ask_before_delete_the_existed_folder=ask_before_delete_the_existed_folder)
 
 
 def extract_student_info_with_no_type_from_legal_student_folder(legal_folder_name):
@@ -175,7 +175,7 @@ def classify_all_student_work_folders(path_work_root, path_excel=None):
                     print("文件信息提示:  学生作品还未评级--->>",
                           students_folder, ", 已经移动到'未评级'文件夹")
                     n_not_rankd += 1
-                    path_des = path_work_root+"\\"+folder_name_unrankd
+                    path_des = path_work_root+"\\"+Unrankd_Folder_Name
                     dir_dealing.move_a_folder_with_warning(
                         path_src, path_des)
                 else:  # 已经评级且有效
@@ -189,7 +189,7 @@ def classify_all_student_work_folders(path_work_root, path_excel=None):
                         path_src, path_des)
             else:  # 上传信息错误，无效
                 print("文件无效:  excel表中此同学信息矛盾--->>", students_folder)
-                path_des = path_work_root+"\\"+folder_name_invalid
+                path_des = path_work_root+"\\"+Invalid_Folder_Name
                 dir_dealing.move_a_folder_with_warning(
                     path_src, path_des)
     if n_not_rankd != 0:
