@@ -16,59 +16,86 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1102, 647)
         MainWindow.setStyleSheet("QPushButton{\n"
-                                 "background-color:\n"
-                                 "qlineargradient(spread:pad,x1:0,x2:0, y1:0, y2:1,\n"
-                                 "stop: 0 rgba(130,130,130,255),\n"
-                                 "stop: 0.495 rgba(0,0,0,255),\n"
-                                 "stop: 0.505 rgba(0,0,0,255),\n"
-                                 "stop: 1 rgba(130,130,130,255));\n"
-                                 " \n"
-                                 "color: rgb(255, 255, 255);\n"
-                                 "border: none;\n"
-                                 "border-radius: 5px;\n"
-                                 "color: rgb(255, 255, 255);\n"
-                                 "font: 75 12pt \"微软雅黑\";\n"
-                                 "}\n"
-                                 " \n"
-                                 "QPushButton:hover{\n"
-                                 "background-color:\n"
-                                 "qlineargradient(spread:pad,x1:0,x2:0, y1:0, y2:3,\n"
-                                 "stop: 0 rgba(150,150,150,230),\n"
-                                 "stop: 0.495 rgba(0,0,0,230),\n"
-                                 "stop: 0.505 rgba(0,0,0,230),\n"
-                                 "stop: 1 rgba(150,150,150,230));\n"
-                                 " \n"
-                                 "color: rgb(255, 255, 255);\n"
-                                 "border: none;\n"
-                                 "border-radius: 10px;\n"
-                                 "color: rgb(255, 255, 255);\n"
-                                 "font: 75 12pt \"微软雅黑\";\n"
-                                 "}\n"
-                                 " \n"
-                                 "QPushButton:pressed{\n"
-                                 "background-color:\n"
-                                 "qlineargradient(spread:pad,x1:0,x2:0, y1:0, y2:1,\n"
-                                 "stop: 0 rgba(100,100,100,255),\n"
-                                 "stop: 0.495 rgba(0,0,0,255),\n"
-                                 "stop: 0.505 rgba(0,0,0,255),\n"
-                                 "stop: 1 rgba(100,100,100,255));\n"
-                                 " \n"
-                                 "color: rgb(255, 255, 255);\n"
-                                 "border: none;\n"
-                                 "border-radius: 5px;\n"
-                                 "color: rgb(255, 255, 255);\n"
-                                 "font: 75 12pt \"微软雅黑\";\n"
-                                 "padding-left:2px;\n"
-                                 "padding-top:1px;\n"
-                                 "}\n"
-                                 "")
+"background-color:\n"
+"qlineargradient(spread:pad,x1:0,x2:0, y1:0, y2:1,\n"
+"stop: 0 rgba(130,130,130,255),\n"
+"stop: 0.495 rgba(0,0,0,255),\n"
+"stop: 0.505 rgba(0,0,0,255),\n"
+"stop: 1 rgba(130,130,130,255));\n"
+" \n"
+"color: rgb(255, 255, 255);\n"
+"border: none;\n"
+"border-radius: 5px;\n"
+"color: rgb(255, 255, 255);\n"
+"font: 75 12pt \"微软雅黑\";\n"
+"}\n"
+" \n"
+"QPushButton:hover{\n"
+"background-color:\n"
+"qlineargradient(spread:pad,x1:0,x2:0, y1:0, y2:3,\n"
+"stop: 0 rgba(150,150,150,230),\n"
+"stop: 0.495 rgba(0,0,0,230),\n"
+"stop: 0.505 rgba(0,0,0,230),\n"
+"stop: 1 rgba(150,150,150,230));\n"
+" \n"
+"color: rgb(255, 255, 255);\n"
+"border: none;\n"
+"border-radius: 10px;\n"
+"color: rgb(255, 255, 255);\n"
+"font: 75 12pt \"微软雅黑\";\n"
+"}\n"
+" \n"
+"QPushButton:pressed{\n"
+"background-color:\n"
+"qlineargradient(spread:pad,x1:0,x2:0, y1:0, y2:1,\n"
+"stop: 0 rgba(100,100,100,255),\n"
+"stop: 0.495 rgba(0,0,0,255),\n"
+"stop: 0.505 rgba(0,0,0,255),\n"
+"stop: 1 rgba(100,100,100,255));\n"
+" \n"
+"color: rgb(255, 255, 255);\n"
+"border: none;\n"
+"border-radius: 5px;\n"
+"color: rgb(255, 255, 255);\n"
+"font: 75 12pt \"微软雅黑\";\n"
+"padding-left:2px;\n"
+"padding-top:1px;\n"
+"}\n"
+"")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
-        self.gridLayout.setObjectName("gridLayout")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setObjectName("pushButton")
-        self.gridLayout.addWidget(self.pushButton, 0, 0, 1, 1)
+        self.pushButton_classify = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_classify.setGeometry(QtCore.QRect(10, 290, 180, 27))
+        self.pushButton_classify.setObjectName("pushButton_classify")
+        self.textBrowser_main = QtWidgets.QTextBrowser(self.centralwidget)
+        self.textBrowser_main.setGeometry(QtCore.QRect(-20, 340, 256, 192))
+        self.textBrowser_main.setStyleSheet("font: 20pt \"Arial\";")
+        self.textBrowser_main.setObjectName("textBrowser_main")
+        self.pushButton_declassify = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_declassify.setGeometry(QtCore.QRect(240, 290, 180, 27))
+        self.pushButton_declassify.setObjectName("pushButton_declassify")
+        self.pushButton_add_type_name = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_add_type_name.setGeometry(QtCore.QRect(871, 510, 220, 27))
+        self.pushButton_add_type_name.setObjectName("pushButton_add_type_name")
+        self.pushButton_remove_type_name = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_remove_type_name.setGeometry(QtCore.QRect(871, 544, 220, 27))
+        self.pushButton_remove_type_name.setObjectName("pushButton_remove_type_name")
+        self.pushButton_set_root = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_set_root.setGeometry(QtCore.QRect(10, 10, 220, 27))
+        self.pushButton_set_root.setObjectName("pushButton_set_root")
+        self.pushButton_choose_excel = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_choose_excel.setGeometry(QtCore.QRect(370, 10, 220, 27))
+        self.pushButton_choose_excel.setObjectName("pushButton_choose_excel")
+        self.labe_root = QtWidgets.QLabel(self.centralwidget)
+        self.labe_root.setGeometry(QtCore.QRect(10, 40, 291, 31))
+        self.labe_root.setStyleSheet("font: 20pt \"Arial\";\n"
+"font: 9pt \"Arial\";")
+        self.labe_root.setObjectName("labe_root")
+        self.label_excel = QtWidgets.QLabel(self.centralwidget)
+        self.label_excel.setGeometry(QtCore.QRect(370, 40, 481, 31))
+        self.label_excel.setStyleSheet("font: 20pt \"Arial\";\n"
+"font: 9pt \"Arial\";")
+        self.label_excel.setObjectName("label_excel")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
@@ -86,6 +113,9 @@ class Ui_MainWindow(object):
         self.toolBar = QtWidgets.QToolBar(MainWindow)
         self.toolBar.setObjectName("toolBar")
         MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
+        self.actionclassify_all_folders = QtWidgets.QAction(MainWindow)
+        self.actionclassify_all_folders.setObjectName("actionclassify_all_folders")
+        self.menu.addAction(self.actionclassify_all_folders)
         self.menuBar.addAction(self.menu.menuAction())
         self.menuBar.addAction(self.menu_2.menuAction())
         self.menuBar.addAction(self.menu_3.menuAction())
@@ -96,8 +126,16 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "LQ"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_classify.setText(_translate("MainWindow", "作品文件夹分级存放"))
+        self.pushButton_declassify.setText(_translate("MainWindow", "作品文件夹取消归类"))
+        self.pushButton_add_type_name.setText(_translate("MainWindow", "作品文件夹添加作品类型"))
+        self.pushButton_remove_type_name.setText(_translate("MainWindow", "作品文件夹删除作品类型"))
+        self.pushButton_set_root.setText(_translate("MainWindow", "设置学生作品文件根目录"))
+        self.pushButton_choose_excel.setText(_translate("MainWindow", "选择学生作品信息登记表"))
+        self.labe_root.setText(_translate("MainWindow", "请选择作品文件根目录"))
+        self.label_excel.setText(_translate("MainWindow", "请选择作品文件信息登记表"))
         self.menu.setTitle(_translate("MainWindow", "文件"))
         self.menu_2.setTitle(_translate("MainWindow", "编辑"))
         self.menu_3.setTitle(_translate("MainWindow", "查找"))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
+        self.actionclassify_all_folders.setText(_translate("MainWindow", "classify all folders"))

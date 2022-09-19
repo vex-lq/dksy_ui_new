@@ -1,7 +1,9 @@
 import xlrd
 import os
 import win32ui
-from common_func import *
+import win32api
+import win32con
+from codex import common_func
 
 
 def map_col_letters_to_int(string):  # excel的字目列转换成数字
@@ -72,7 +74,7 @@ def look_for_scoring_excel(path_whole_root):  # 查找excel登记表
             continue
         excel_files.append(file)  # ok,添加进去
     if len(excel_files) == 0:
-        if warn_messagebox("未找到学生等级登记表,是否添加？", win32con.MB_ICONWARNING | win32con.MB_YESNO):
+        if common_func.warn_messagebox("未找到学生等级登记表,是否添加？", win32con.MB_ICONWARNING | win32con.MB_YESNO):
             dlg = win32ui.CreateFileDialog(1)  # 打开文件
             dlg.SetOFNInitialDir(path_whole_root)
             flag = dlg.DoModal()
@@ -85,7 +87,7 @@ def look_for_scoring_excel(path_whole_root):  # 查找excel登记表
     elif len(excel_files) == 1:
         return path_whole_root+"\\"+excel_files[0]
     else:
-        if warn_messagebox(f"存在多个excel表:{excel_files}\n请选择1个学生等级登记表？", win32con.MB_ICONWARNING | win32con.MB_YESNO):
+        if common_func.warn_messagebox(f"存在多个excel表:{excel_files}\n请选择1个学生等级登记表？", win32con.MB_ICONWARNING | win32con.MB_YESNO):
             dlg = win32ui.CreateFileDialog(1)  # 打开文件
             dlg.SetOFNInitialDir(path_whole_root)
             flag = dlg.DoModal()

@@ -1,3 +1,4 @@
+from glob import glob
 import sys
 
 # 归类文件夹前缀
@@ -8,8 +9,9 @@ All_Campus = ['天骄', '清水河', '尚丰']
 All_Grades = ["高1", "高2", "初1", "初2"]
 All_Work_Types = ["发明", "论文", "科幻画", "科学影像", "理化生实验改进"]
 
-All_Campus_Folders_Names = [prefix_of_folders+c for c in All_Campus]
-All_Grades_Folders_Names=All_Grades
+All_Campus_Folders_Names = [
+    prefix_of_folders+c for c in All_Campus]
+All_Grades_Folders_Names = All_Grades
 
 # 每个校区年级的班级数量字典
 campus_grade_class_count = {}
@@ -44,24 +46,49 @@ regex_student_name_chinese_only = r"([\u4e00-\u9fa5]{2,4})$"  # 学生名字：2
 regex_student_name_english_too = r"([\u4e00-\u9fa5]{2,4}|\D{2,40})$"
 
 
-STUDENT_NAME_USING_ENGLISH = False
-if STUDENT_NAME_USING_ENGLISH:
-    regex_student_name = regex_student_name_english_too
-else:
-    regex_student_name = regex_student_name_chinese_only
-
 # 初步匹配学生文件夹名
 rough_regex_of_student_folder_with_no_type = r"(?P<campus>(\D)+)-(?P<grade>[高初][\d]+)-(?P<class_n>[\d]+)班-(?P<name>(.)+)$"
 rough_regex_of_student_folder_with_type = r"(?P<campus>(\D)+)-(?P<grade>[高初][\d]+)-(?P<class_n>[\d]+)班-(?P<type>(\D)+)-(?P<name>(.)+)$"
 
-# 初步匹配学生文件夹名
-if STUDENT_NAME_USING_ENGLISH:
-    exact_regex_of_student_folder_with_no_type = r"(?P<campus>(\D)+)-(?P<grade>[高初][\d]+)-(?P<class_n>[\d]+)班-(?P<name>[\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,40})$"
-    exact_regex_of_student_folder_with_type = r"(?P<campus>(\D)+)-(?P<grade>[高初][\d]+)-(?P<class_n>[\d]+)班-(?P<type>[\u4e00-\u9fa5]+)-(?P<name>[\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,40})$"
-else:
-    exact_regex_of_student_folder_with_no_type = r"(?P<campus>[\u4e00-\u9fa5]{2,3})-(?P<grade>[高初][\d]+)-(?P<class_n>[\d]+)班-(?P<name>[\u4e00-\u9fa5]{2,4})$"
-    exact_regex_of_student_folder_with_type = r"(?P<campus>[\u4e00-\u9fa5]{2,3})-(?P<grade>[高初][\d]+)-(?P<class_n>[\d]+)班-(?P<type>[\u4e00-\u9fa5]+)-(?P<name>[\u4e00-\u9fa5]{2,4})$"
+
+# 全局变量
+regex_student_name = ""
+exact_regex_of_student_folder_with_no_type = ""
+exact_regex_of_student_folder_with_type = ""
+STUDENT_NAME_USING_ENGLISH = False
+
+
+def student_name_character_init(using_english=STUDENT_NAME_USING_ENGLISH):
+    global STUDENT_NAME_USING_ENGLISH
+    global regex_student_name
+    global exact_regex_of_student_folder_with_no_type, exact_regex_of_student_folder_with_type
+
+    STUDENT_NAME_USING_ENGLISH = using_english
+    if STUDENT_NAME_USING_ENGLISH:
+        regex_student_name = regex_student_name_english_too
+    else:
+        regex_student_name = regex_student_name_chinese_only
+    # 初步匹配学生文件夹名
+    if STUDENT_NAME_USING_ENGLISH:
+        print("using??")
+        exact_regex_of_student_folder_with_no_type = r"(?P<campus>(\D)+)-(?P<grade>[高初][\d]+)-(?P<class_n>[\d]+)班-(?P<name>[\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,40})$"
+        exact_regex_of_student_folder_with_type = r"(?P<campus>(\D)+)-(?P<grade>[高初][\d]+)-(?P<class_n>[\d]+)班-(?P<type>[\u4e00-\u9fa5]+)-(?P<name>[\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,40})$"
+    else:
+        exact_regex_of_student_folder_with_no_type = r"(?P<campus>[\u4e00-\u9fa5]{2,3})-(?P<grade>[高初][\d]+)-(?P<class_n>[\d]+)班-(?P<name>[\u4e00-\u9fa5]{2,4})$"
+        exact_regex_of_student_folder_with_type = r"(?P<campus>[\u4e00-\u9fa5]{2,3})-(?P<grade>[高初][\d]+)-(?P<class_n>[\d]+)班-(?P<type>[\u4e00-\u9fa5]+)-(?P<name>[\u4e00-\u9fa5]{2,4})$"
+
+
+# 运行初始化
+student_name_character_init(STUDENT_NAME_USING_ENGLISH)
 
 
 separater_func_begin = "begin------------------------------------------------"
 separater_func_end = "end-------------------------------------------------\n\n"
+
+
+GG = 4
+
+
+def f():
+    global GG
+    GG = 5

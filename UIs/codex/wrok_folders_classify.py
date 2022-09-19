@@ -2,32 +2,32 @@ from genericpath import isfile
 import os
 import sys
 import re
-import dir_dealing
-import chinese_character
-import excel_read
+import codex.Global_Varibles as Global_Varibles
+import codex.chinese_character as chinese_character
+import codex.excel_read as excel_read
+import codex.dir_dealing as dir_dealing
+from codex.common_func import *
 import win32api
-from common_func import *
 import win32con
-from Global_Varibles import *
 import natsort
 
 # 建立所有的文件夹
 
 
 def make_all_campus_grade_class_rank_folders(path_work_root, directly_exit_if_exist=False, ask_before_delete_the_existed_folder=True):
-    for campus in campus_grade_class_count.keys():
-        path_campus = path_work_root+"\\"+prefix_of_folders+campus
+    for campus in Global_Varibles.campus_grade_class_count.keys():
+        path_campus = path_work_root+"\\"+Global_Varibles.prefix_of_folders+campus
         dir_dealing.make_a_folder_with_warning(path_campus, directly_exit_if_exist=directly_exit_if_exist,
                                                ask_before_delete_the_existed_folder=ask_before_delete_the_existed_folder)  # 校区文件夹
-        for grade in campus_grade_class_count[campus].keys():
+        for grade in Global_Varibles.campus_grade_class_count[campus].keys():
             path_grade = path_campus+"\\"+grade
             dir_dealing.make_a_folder_with_warning(path_grade, directly_exit_if_exist=directly_exit_if_exist,
                                                    ask_before_delete_the_existed_folder=ask_before_delete_the_existed_folder)  # 年级文件夹
-            for class_n in range(1, campus_grade_class_count[campus][grade]+1):
+            for class_n in range(1, Global_Varibles.campus_grade_class_count[campus][grade]+1):
                 path_class = path_grade+"\\"+str(class_n)+"班"
                 dir_dealing.make_a_folder_with_warning(path_class, directly_exit_if_exist=directly_exit_if_exist,
                                                        ask_before_delete_the_existed_folder=ask_before_delete_the_existed_folder)  # 班级文件夹
-                for rank in Rank_Folder_Names:
+                for rank in Global_Varibles.Rank_Folder_Names:
                     path_rank_folder = path_class+"\\"+rank
                     dir_dealing.make_a_folder_with_warning(
                         path_rank_folder, directly_exit_if_exist=directly_exit_if_exist, ask_before_delete_the_existed_folder=ask_before_delete_the_existed_folder)  # 班级文件夹
@@ -36,22 +36,22 @@ def make_all_campus_grade_class_rank_folders(path_work_root, directly_exit_if_ex
 
 
 def make_invalid_and_unranked_folder(path_work_root, directly_exit_if_exist=False, ask_before_delete_the_existed_folder=True):
-    dir_dealing.make_a_folder_with_warning(path_work_root+"\\"+Invalid_Folder_Name,
+    dir_dealing.make_a_folder_with_warning(path_work_root+"\\"+Global_Varibles.Invalid_Folder_Name,
                                            directly_exit_if_exist=directly_exit_if_exist, ask_before_delete_the_existed_folder=ask_before_delete_the_existed_folder)
     dir_dealing.make_a_folder_with_warning(
-        path_work_root+"\\"+Unrankd_Folder_Name, directly_exit_if_exist=directly_exit_if_exist, ask_before_delete_the_existed_folder=ask_before_delete_the_existed_folder)
+        path_work_root+"\\"+Global_Varibles.Unrankd_Folder_Name, directly_exit_if_exist=directly_exit_if_exist, ask_before_delete_the_existed_folder=ask_before_delete_the_existed_folder)
 
 
 def extract_student_info_with_no_type_from_legal_student_folder(legal_folder_name):
     # 不带类型
     if get_err_reason_of_folder_name_with_no_type(legal_folder_name) == None:
         result = re.match(
-            exact_regex_of_student_folder_with_no_type, legal_folder_name)
+            Global_Varibles.exact_regex_of_student_folder_with_no_type, legal_folder_name)
         return result.groupdict()
     # 带类型
     elif get_err_reason_of_folder_name_with_type(legal_folder_name) == None:
         result = re.match(
-            exact_regex_of_student_folder_with_type, legal_folder_name)
+            Global_Varibles.exact_regex_of_student_folder_with_type, legal_folder_name)
         return result.groupdict()
     else:
         print("*********不是合法命名的文件夹名字：extract_student_info_from_legal_student_folder: ",
@@ -62,7 +62,8 @@ def extract_student_info_with_no_type_from_legal_student_folder(legal_folder_nam
 #todo: 增加入选带类型的文件夹
 # 过滤合法命名的学生文件夹，但是可能不在登记表中
 def filter_legal_naming_student_work_folder_at_root_folder(path_work_root, ask_delete_on_nonempty_folder=True):
-    print(separater_func_begin+" @ "+sys._getframe().f_code.co_name)
+    print(Global_Varibles.separater_func_begin +
+          " @ "+sys._getframe().f_code.co_name)
     print("筛选命名合法的学生文件夹......")
 
     all_files_and_folders_in_root_path = os.listdir(path_work_root)
@@ -73,7 +74,7 @@ def filter_legal_naming_student_work_folder_at_root_folder(path_work_root, ask_d
     for fils_or_folder in all_files_and_folders_in_root_path:
         # 判断是否合法命名,初步判断命名
         if os.path.isdir(path_work_root+"\\"+fils_or_folder):
-            if fils_or_folder.startswith(prefix_of_folders):
+            if fils_or_folder.startswith(Global_Varibles.prefix_of_folders):
                 print("系统分类文件夹：", fils_or_folder)
                 continue
             err_str = get_err_reason_of_folder_name_with_no_type(
@@ -92,7 +93,7 @@ def filter_legal_naming_student_work_folder_at_root_folder(path_work_root, ask_d
                         path_work_root+"\\"+fils_or_folder, err_str,
                         ask_on_nonempty_folder=ask_delete_on_nonempty_folder)
     print("完成！")
-    print(separater_func_end)
+    print(Global_Varibles.separater_func_end)
     return filtered_legal_students_folder_list
 
 
@@ -104,7 +105,8 @@ def delete_all_illegal_namimg_student_folders_at_work_root(path_work_root, ask_d
 
 # 清除根目录中的不合法、无效、信息缺失的文件夹
 def delete_all_illegal_and_invalid_and_non_excel_registered_student_folders_at_work_root(path_work_root, path_excel=None, delete_invalid=False, ask_on_nonempty_folder=True):
-    print(separater_func_begin+" @ "+sys._getframe().f_code.co_name)
+    print(Global_Varibles.separater_func_begin +
+          " @ "+sys._getframe().f_code.co_name)
     print("清除不合法命名、无效、信息缺失的文件夹......")
     if path_excel == None:
         path_excel_may_exist = os.path.dirname(
@@ -139,11 +141,12 @@ def delete_all_illegal_and_invalid_and_non_excel_registered_student_folders_at_w
                         win32api.MessageBox(
                             0, f'\"{students_folder}\"  同学联系方式电话: {student_rank_data[student_info_with_no_type]["phone"]}', "提醒", win32con.MB_OK)
     print("完成！")
-    print(separater_func_end)
+    print(Global_Varibles.separater_func_end)
 
 
 def classify_all_student_work_folders(path_work_root, path_excel=None):
-    print(separater_func_begin+" @ "+sys._getframe().f_code.co_name)
+    print(Global_Varibles.separater_func_begin +
+          " @ "+sys._getframe().f_code.co_name)
     print("将学生文件夹归类到对应的等级文件夹中...")
     if path_excel == None:
         path_excel_may_exist = os.path.dirname(
@@ -175,12 +178,12 @@ def classify_all_student_work_folders(path_work_root, path_excel=None):
                     print("文件信息提示:  学生作品还未评级--->>",
                           students_folder, ", 已经移动到'未评级'文件夹")
                     n_not_rankd += 1
-                    path_des = path_work_root+"\\"+Unrankd_Folder_Name
+                    path_des = path_work_root+"\\"+Global_Varibles.Unrankd_Folder_Name
                     dir_dealing.move_a_folder_with_warning(
                         path_src, path_des)
                 else:  # 已经评级且有效
-                    path_des = path_work_root+"\\" + prefix_of_folders+match_dict["campus"]+"\\" + match_dict["grade"] + \
-                        "\\" + match_dict["class_n"] + "班\\" + prefix_of_folders + \
+                    path_des = path_work_root+"\\" + Global_Varibles.prefix_of_folders+match_dict["campus"]+"\\" + match_dict["grade"] + \
+                        "\\" + match_dict["class_n"] + "班\\" + Global_Varibles.prefix_of_folders + \
                         student_rank_data[student_info_with_no_type]["rank"]
                     n_moved += 1
                     print(f"  >> 已分类 {n_moved}: ", chinese_character.chinese_align(students_folder, 30),
@@ -189,7 +192,7 @@ def classify_all_student_work_folders(path_work_root, path_excel=None):
                         path_src, path_des)
             else:  # 上传信息错误，无效
                 print("文件无效:  excel表中此同学信息矛盾--->>", students_folder)
-                path_des = path_work_root+"\\"+Invalid_Folder_Name
+                path_des = path_work_root+"\\"+Global_Varibles.Invalid_Folder_Name
                 dir_dealing.move_a_folder_with_warning(
                     path_src, path_des)
     if n_not_rankd != 0:
@@ -199,7 +202,7 @@ def classify_all_student_work_folders(path_work_root, path_excel=None):
         print("完成！")
     else:
         print("没有学生作品文件夹需要归类~~")
-    print(separater_func_end)
+    print(Global_Varibles.separater_func_end)
 
 
 # 全部归类

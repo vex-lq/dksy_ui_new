@@ -63,15 +63,131 @@ padding-top:1px;
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>PushButton</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <widget class="QPushButton" name="pushButton_classify">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>290</y>
+      <width>180</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>作品文件夹分级存放</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser_main">
+    <property name="geometry">
+     <rect>
+      <x>-20</x>
+      <y>340</y>
+      <width>256</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 20pt &quot;Arial&quot;;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_declassify">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>290</y>
+      <width>180</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>作品文件夹取消归类</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_add_type_name">
+    <property name="geometry">
+     <rect>
+      <x>871</x>
+      <y>510</y>
+      <width>220</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>作品文件夹添加作品类型</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_remove_type_name">
+    <property name="geometry">
+     <rect>
+      <x>871</x>
+      <y>544</y>
+      <width>220</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>作品文件夹删除作品类型</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_set_root">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>220</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>设置学生作品文件根目录</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_choose_excel">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>10</y>
+      <width>220</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>选择学生作品信息登记表</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labe_root">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>291</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 20pt &quot;Arial&quot;;
+font: 9pt &quot;Arial&quot;;</string>
+    </property>
+    <property name="text">
+     <string>请选择作品文件根目录</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_excel">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>40</y>
+      <width>481</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 20pt &quot;Arial&quot;;
+font: 9pt &quot;Arial&quot;;</string>
+    </property>
+    <property name="text">
+     <string>请选择作品文件信息登记表</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">
@@ -87,6 +203,7 @@ padding-top:1px;
     <property name="title">
      <string>文件</string>
     </property>
+    <addaction name="actionclassify_all_folders"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -113,6 +230,11 @@ padding-top:1px;
     <bool>false</bool>
    </attribute>
   </widget>
+  <action name="actionclassify_all_folders">
+   <property name="text">
+    <string>classify all folders</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
