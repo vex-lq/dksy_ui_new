@@ -38,7 +38,7 @@ def declassify_all_student_work_folders(path_work_root, delete_empty_classified_
             for work_folder in dir:
                 # 直接替换
                 dir_dealing.move_a_folder_with_warning(
-                    root+"\\"+work_folder, path_work_root, directly_exit_if_exist=False, ask_replace_the_existed_folder=False)
+                    root+"\\"+work_folder, path_work_root, directly_exit_if_exist=False, ask_before_delete_nonempty_des_folder=False)
     if delete_empty_classified_folders:
         delete_all_campus_grade_class_rank_folders(
             path_work_root, ask_on_nonempty_folder=False)

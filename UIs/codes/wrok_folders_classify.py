@@ -54,7 +54,7 @@ def extract_student_info_with_no_type_from_legal_student_folder(legal_folder_nam
             exact_regex_of_student_folder_with_type, legal_folder_name)
         return result.groupdict()
     else:
-        print("*********不是合法的文件夹名字：extract_student_info_from_legal_student_folder: ",
+        print("*********不是合法命名的文件夹名字：extract_student_info_from_legal_student_folder: ",
               legal_folder_name)
         return None
 
@@ -63,7 +63,7 @@ def extract_student_info_with_no_type_from_legal_student_folder(legal_folder_nam
 # 过滤合法命名的学生文件夹，但是可能不在登记表中
 def filter_legal_naming_student_work_folder_at_root_folder(path_work_root, ask_delete_on_nonempty_folder=True):
     print(separater_func_begin+" @ "+sys._getframe().f_code.co_name)
-    print("筛选合法的学生文件夹......")
+    print("筛选命名合法的学生文件夹......")
 
     all_files_and_folders_in_root_path = os.listdir(path_work_root)
     all_files_and_folders_in_root_path = natsort.os_sorted(
@@ -105,14 +105,14 @@ def delete_all_illegal_namimg_student_folders_at_work_root(path_work_root, ask_d
 # 清除根目录中的不合法、无效、信息缺失的文件夹
 def delete_all_illegal_and_invalid_and_non_excel_registered_student_folders_at_work_root(path_work_root, path_excel=None, delete_invalid=False, ask_on_nonempty_folder=True):
     print(separater_func_begin+" @ "+sys._getframe().f_code.co_name)
-    print("清除不合法、无效、信息缺失的文件夹......")
+    print("清除不合法命名、无效、信息缺失的文件夹......")
     if path_excel == None:
         path_excel_may_exist = os.path.dirname(
             path_work_root)  # 默认选择作品根目录的上一级文件夹
     path_excel = excel_read.look_for_scoring_excel(path_excel_may_exist)
     student_rank_data = excel_read.get_excel_student_data(path_excel)
     filtered_legal_students_folder_list = filter_legal_naming_student_work_folder_at_root_folder(
-        path_work_root, ask_delete_on_nonempty_folder=ask_on_nonempty_folder)  # 选出合法文件夹,并删除不合法命名的文件夹
+        path_work_root, ask_delete_on_nonempty_folder=ask_on_nonempty_folder)  # 选出命名合法文件夹,并删除不合法命名的文件夹
 
     for students_folder in filtered_legal_students_folder_list:
         path_src = path_work_root+"\\"+students_folder  # 每一个学生文件夹
